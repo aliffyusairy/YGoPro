@@ -1,6 +1,7 @@
 --墓守の召喚師
 function c93023479.initial_effect(c)
 	--search
+	
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(93023479,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -24,29 +25,27 @@ function c93023479.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_GRAVE)
-	e3:SetCountLimit(1,93023479)
+--	e3:SetCountLimit(1,93023479)
 	e3:SetCost(c93023479.cost)
 	e3:SetTarget(c93023479.target)
 	e3:SetOperation(c93023479.operation)
 	c:RegisterEffect(e3)
 	
---	local e4=Effect.CreateEffect(c)
---	e4:SetDescription(aux.Stringid(93023479,0))
-----	e4:SetCategory(CATEGORY_TOHAND)
---	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
---	e4:SetType(EFFECT_TYPE_IGNITION)
---	e4:SetRange(LOCATION_REMOVED)
-----	e4:SetCountLimit(1,93023479)
---	e4:SetCost(c93023479.cost1)
-----	e4:SetTarget(c93023479.target)
-----	e4:SetOperation(c93023479.operation)
---	c:RegisterEffect(e4)
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(93023479,0))
+	e4:SetCategory(CATEGORY_TODECK)
+	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e4:SetType(EFFECT_TYPE_IGNITION)
+	e4:SetRange(LOCATION_REMOVED)
+--	e4:SetCountLimit(1,93023479)
+	e4:SetCost(c93023479.cost1)
+--	e4:SetTarget(c93023479.target)
+--	e4:SetOperation(c93023479.operation)
+	c:RegisterEffect(e4)
+	
 end
 
---function c93023479.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
-----	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
---	Duel.SendtoHand(e:GetHandler(),POS_FACEUP,REASON_COST)
---end
+
 
 function c93023479.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -79,9 +78,28 @@ function c93023479.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c93023479.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
+	if chk==0 then 
+		return true --e:GetHandler():IsAbleToRemoveAsCost() 
+	end
+	print("here")
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
+
+function c93023479.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then 
+		return true --e:GetHandler():IsAbleToRemoveAsCost() 
+	end
+	print("here1")
+--	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_EFFECT)
+	
+	
+--	Duel.SendtoDeck(e:GetHandler(),0,REASON_COST)
+	Duel.ShuffleDeck(tp)
+	Duel.ShuffleDeck(1-tp)
+	
+end
+
 function c93023479.filter(c)
 	return c:IsSetCard(0x2e) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
