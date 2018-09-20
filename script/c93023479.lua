@@ -37,15 +37,12 @@ function c93023479.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_REMOVED)
---	e4:SetCountLimit(1,93023479)
 	e4:SetCost(c93023479.cost1)
 --	e4:SetTarget(c93023479.target)
 --	e4:SetOperation(c93023479.operation)
 	c:RegisterEffect(e4)
 	
 end
-
-
 
 function c93023479.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -81,7 +78,6 @@ function c93023479.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
 		return true --e:GetHandler():IsAbleToRemoveAsCost() 
 	end
-	print("here")
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 
@@ -89,14 +85,8 @@ function c93023479.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
 		return true --e:GetHandler():IsAbleToRemoveAsCost() 
 	end
-	print("here1")
---	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_EFFECT)
-	
-	
---	Duel.SendtoDeck(e:GetHandler(),0,REASON_COST)
 	Duel.ShuffleDeck(tp)
-	Duel.ShuffleDeck(1-tp)
 	
 end
 
@@ -115,9 +105,6 @@ function c93023479.operation(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 then
 	end
 end
-
-
-
 
 function c93023479.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
