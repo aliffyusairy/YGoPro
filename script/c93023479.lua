@@ -1,7 +1,6 @@
 --墓守の召喚師
 function c93023479.initial_effect(c)
 	--search
-	
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(93023479,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
