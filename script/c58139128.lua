@@ -45,7 +45,24 @@ function c58139128.initial_effect(c)
 	e5:SetValue(c58139128.efilter)
 	c:RegisterEffect(e5)
 	
-	
+	local e6=Effect.CreateEffect(c)
+	e6:SetDescription(aux.Stringid(58139128,0))
+	e6:SetCategory(CATEGORY_TODECK)
+	e6:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e6:SetType(EFFECT_TYPE_IGNITION)
+	e6:SetRange(LOCATION_REMOVED)
+	e6:SetCost(c58139128.cost)
+--	e6:SetTarget(c58139128.target)
+--	e6:SetOperation(c58139128.operation)
+	c:RegisterEffect(e6)
+end
+
+function c3381441.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then 
+		return true --e:GetHandler():IsAbleToRemoveAsCost() 
+	end
+	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_EFFECT)
+	Duel.ShuffleDeck(tp)
 end
 
 function c58139128.filter_i(c)
