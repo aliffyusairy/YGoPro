@@ -57,7 +57,7 @@ function c58139128.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 
-function c3381441.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c58139128.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
 		return true --e:GetHandler():IsAbleToRemoveAsCost() 
 	end
