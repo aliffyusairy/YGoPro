@@ -25,7 +25,6 @@ function c3381441.initial_effect(c)
 	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2e))
 	e3:SetValue(200)
 	c:RegisterEffect(e3)
-	
 	--sp
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -35,7 +34,28 @@ function c3381441.initial_effect(c)
 	e4:SetTarget(c3381441.target)
 	e4:SetOperation(c3381441.operation)
 	c:RegisterEffect(e4)
+	
+	local e5=Effect.CreateEffect(c)
+	e5:SetDescription(aux.Stringid(3381441,0))
+	e5:SetCategory(CATEGORY_TODECK)
+	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e5:SetType(EFFECT_TYPE_IGNITION)
+	e5:SetRange(LOCATION_REMOVED)
+	e5:SetCost(c3381441.cost)
+	e5:SetTarget(c3381441.target)
+	e5:SetOperation(c3381441.operation)
+	c:RegisterEffect(e5)
+	
 end
+
+function c3381441.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then 
+		return true --e:GetHandler():IsAbleToRemoveAsCost() 
+	end
+	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_EFFECT)
+	Duel.ShuffleDeck(tp)
+end
+
 function c3381441.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_ONFIELD) 
