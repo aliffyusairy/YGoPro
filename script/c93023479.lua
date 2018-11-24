@@ -75,7 +75,8 @@ function c93023479.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c93023479.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
-		return true --e:GetHandler():IsAbleToRemoveAsCost() 
+		print("true")
+		return true--e:GetHandler():IsAbleToRemoveAsCost() 
 	end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
